@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC Solitaire - Lewis &amp; Clark College</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="start-container">
+            <h1 class="title">LC Solitaire</h1>
+            <div class="subtitle">Lewis &amp; Clark College</div>
+            <div class="mascot-container">
+                <img src="https://www.lclark.edu/live/image/scale/2x/gid/185/width/500/height/418/112053_LC_RiverOtters_Mascot_Outlined_RGB.png"
+                     alt="Lewis &amp; Clark River Otters Mascot" class="mascot-image">
+            </div>
+            <div id="session-high-score" class="high-score hidden">
+                Session High Score: <span id="high-score-value">0</span>
+            </div>
+            <button id="start-game-btn" class="start-button">Click to Start</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <!-- Header Bar -->
+        <div class="header-bar">
+            <div class="score-info">
+                <span class="score-label">Score: </span>
+                <span id="current-score">0</span>
+                <span class="separator">|</span>
+                <span class="high-score-label">High: </span>
+                <span id="game-high-score">0</span>
+                <span class="separator">|</span>
+                <span class="time-label">Time: </span>
+                <span id="game-time">00:00</span>
+            </div>
+            <button id="undo-btn" class="undo-button" disabled>Undo</button>
+        </div>
+
+        <!-- Game Board -->
+        <div class="game-board">
+            <!-- Top Row: Stock, Waste, and Foundations -->
+            <div class="top-row">
+                <!-- Stock and Waste -->
+                <div class="stock-waste-area">
+                    <div id="stock-pile" class="card-pile stock-pile">
+                        <div class="pile-placeholder">Stock</div>
+                    </div>
+                    <div id="waste-pile" class="card-pile waste-pile">
+                        <div class="pile-placeholder">Waste</div>
+                    </div>
+                </div>
+
+                <!-- Foundations -->
+                <div class="foundations-area">
+                    <div id="foundation-spades" class="card-pile foundation" data-suit="spades">
+                        <div class="pile-placeholder">♠</div>
+                    </div>
+                    <div id="foundation-hearts" class="card-pile foundation" data-suit="hearts">
+                        <div class="pile-placeholder">♥</div>
+                    </div>
+                    <div id="foundation-diamonds" class="card-pile foundation" data-suit="diamonds">
+                        <div class="pile-placeholder">♦</div>
+                    </div>
+                    <div id="foundation-clubs" class="card-pile foundation" data-suit="clubs">
+                        <div class="pile-placeholder">♣</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau (7 columns) -->
+            <div class="tableau">
+                <div id="tableau-0" class="tableau-column" data-column="0"></div>
+                <div id="tableau-1" class="tableau-column" data-column="1"></div>
+                <div id="tableau-2" class="tableau-column" data-column="2"></div>
+                <div id="tableau-3" class="tableau-column" data-column="3"></div>
+                <div id="tableau-4" class="tableau-column" data-column="4"></div>
+                <div id="tableau-5" class="tableau-column" data-column="5"></div>
+                <div id="tableau-6" class="tableau-column" data-column="6"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="game-over-title">Congratulations!</h2>
+            <div id="game-over-message">You won!</div>
+            <div class="game-over-stats">
+                <div class="stat">
+                    <span class="stat-label">Final Score:</span>
+                    <span id="final-score">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Time:</span>
+                    <span id="final-time">00:00</span>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button id="play-again-btn" class="modal-button primary">Play Again</button>
+                <button id="quit-btn" class="modal-button secondary">Quit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

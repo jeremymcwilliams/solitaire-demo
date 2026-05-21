@@ -1,0 +1,522 @@
+/* LC Solitaire Styles */
+
+/* Color Variables - Official Lewis & Clark Colors */
+:root {
+    /* Primary LC Colors */
+    --lc-orange: #f47721;
+    --lc-black: #231F20;
+    --lc-white: #FFFFFF;
+
+    /* Secondary LC Colors (Oregon-inspired) */
+    --conifer-green: #07472E;
+    --lost-lake-blue: #003D5C;
+    --ocean-blue: #7ACFCD;
+    --crema-cream: #FFEBD9;
+    --mt-hood-gray: #9AA39B;
+
+    /* Game-specific applications */
+    --card-white: #FFFFFF;
+    --card-border: #9AA39B;
+    --text-light: #FFFFFF;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: var(--conifer-green);
+    color: var(--text-light);
+    overflow-x: auto;
+    min-width: 360px;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Start Screen */
+#start-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--lc-black), var(--conifer-green));
+}
+
+.start-container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 500px;
+}
+
+.title {
+    font-size: 3rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px var(--shadow);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.mascot-container {
+    margin: 2rem 0;
+}
+
+.mascot-image {
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.high-score {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: var(--text-light);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.start-button {
+    background: var(--lc-orange);
+    color: var(--text-light);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.start-button:hover {
+    background: #d5651c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow);
+}
+
+/* Game Screen */
+#game-screen {
+    background: var(--conifer-green);
+    min-height: 100vh;
+    height: 100%;
+    padding: 1rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--lc-black);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.score-info {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.separator {
+    margin: 0 1rem;
+    opacity: 0.7;
+}
+
+.undo-button {
+    background: var(--lc-orange);
+    color: var(--text-light);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.undo-button:hover:not(:disabled) {
+    background: #d5651c;
+}
+
+.undo-button:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* Game Board */
+.game-board {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.stock-waste-area {
+    display: flex;
+    gap: 1rem;
+}
+
+.foundations-area {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Card Pile Base Styles */
+.card-pile {
+    width: 80px;
+    height: 112px;
+    border-radius: 8px;
+    border: 2px dashed var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pile-placeholder {
+    color: var(--card-border);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0.5;
+}
+
+.foundation .pile-placeholder {
+    font-size: 2rem;
+}
+
+.foundation[data-suit="hearts"] .pile-placeholder,
+.foundation[data-suit="diamonds"] .pile-placeholder {
+    color: var(--lc-orange);
+}
+
+/* Tableau */
+.tableau {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    min-height: 400px;
+}
+
+.tableau-column {
+    min-height: 112px;
+    position: relative;
+    border: 2px dashed transparent;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.tableau-column.drop-target {
+    border-color: var(--lc-orange);
+    background: rgba(244, 119, 33, 0.1);
+}
+
+/* Card Styles */
+.card {
+    width: 80px;
+    height: 112px;
+    background: var(--card-white);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    user-select: none;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.card.dragging {
+    transform: rotate(5deg);
+    z-index: 1000;
+    box-shadow: 0 8px 16px var(--shadow);
+}
+
+.card.face-down {
+    background: var(--lc-black);
+    background-image: url('https://www.lclark.edu/live/image/scale/2x/gid/185/width/500/height/418/112053_LC_RiverOtters_Mascot_Outlined_RGB.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.card.face-down:hover {
+    background-color: #3a3638;
+}
+
+.card-rank-top,
+.card-rank-bottom {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 2px;
+    line-height: 1;
+}
+
+.card-rank-top {
+    align-self: flex-start;
+}
+
+.card-rank-bottom {
+    align-self: flex-end;
+    transform: rotate(180deg);
+}
+
+.card-suit-center {
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card.red {
+    color: var(--lc-orange);
+}
+
+.card.black {
+    color: var(--lc-black);
+}
+
+/* Tableau card positioning */
+.tableau-column .card {
+    position: relative !important;
+    margin-bottom: -90px;
+}
+
+.tableau-column .card:last-child {
+    margin-bottom: 0;
+}
+
+/* Stock and waste pile card positioning */
+.stock-pile .card,
+.waste-pile .card {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.foundation .card {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: var(--card-white);
+    color: var(--lc-black);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+#game-over-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--lc-black);
+}
+
+#game-over-message {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.game-over-stats {
+    margin-bottom: 2rem;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.stat-label {
+    font-weight: bold;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.modal-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.modal-button.primary {
+    background: var(--lc-orange);
+    color: var(--text-light);
+}
+
+.modal-button.primary:hover {
+    background: #d5651c;
+}
+
+.modal-button.secondary {
+    background: var(--mt-hood-gray);
+    color: var(--lc-black);
+}
+
+.modal-button.secondary:hover {
+    background: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .header-bar {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .top-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .stock-waste-area,
+    .foundations-area {
+        justify-content: center;
+    }
+
+    .tableau {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+    }
+
+    .card {
+        width: 70px;
+        height: 98px;
+    }
+
+    .card-pile {
+        width: 70px;
+        height: 98px;
+    }
+
+    .tableau-column .card {
+        margin-bottom: -78px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tableau {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+        width: 60px;
+        height: 84px;
+        font-size: 0.8rem;
+    }
+
+    .card-pile {
+        width: 60px;
+        height: 84px;
+    }
+
+    .card-suit-center {
+        font-size: 1.5rem;
+    }
+
+    .tableau-column .card {
+        margin-bottom: -68px;
+    }
+
+    .modal-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
+
+/* Animation classes */
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.flip {
+    animation: flip 0.3s ease-in-out;
+}
+
+@keyframes flip {
+    0% { transform: scaleX(1); }
+    50% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+}

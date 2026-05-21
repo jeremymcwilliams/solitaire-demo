@@ -101,7 +101,7 @@ Display this as the `background-image` (or `<img>`) on any face-down card elemen
 Draw cards entirely with HTML/CSS — no external card image library required. Each card shows:
 - Rank (A, 2–10, J, Q, K) in top-left and bottom-right corners
 - Suit symbol (♠ ♥ ♦ ♣) centered and in corners
-- Red suits (♥ ♦) in red; black suits (♠ ♣) in black/dark
+- Hearts/Diamonds (♥ ♦) in LC Orange; Spades/Clubs (♠ ♣) in LC Black
 
 ### Interaction
 
@@ -118,12 +118,25 @@ Draw cards entirely with HTML/CSS — no external card image library required. E
 
 ## Color Palette (Lewis & Clark)
 
-- Primary: `#003865` (LC dark blue)
-- Accent: `#C8102E` (LC red / cardinal)
-- Background: `#1a5c2a` (felt green, traditional card table)
-- Card face: `#ffffff`
-- Card border: `#888`
-- Text on dark: `#ffffff`
+**Primary Colors (Official LC Brand):**
+- Primary Orange: `#f47721` (LC official orange - dominant color)
+- Primary Black: `#231F20` (LC official black - contrasting color)  
+- Primary White: `#FFFFFF` (LC official white - supporting color)
+
+**Secondary Colors (Oregon-inspired):**
+- Conifer Green: `#07472E` (background alternative)
+- Lost Lake Blue: `#003D5C` (accent color)
+- Ocean Blue: `#7ACFCD` (light accent)
+- Crema Cream: `#FFEBD9` (warm neutral)
+- Mt. Hood Gray: `#9AA39B` (borders/subtle elements)
+
+**Game-Specific Application:**
+- Background: `#07472E` (Conifer Green for card table feel)
+- Card face: `#FFFFFF` (Primary White)
+- Card border: `#9AA39B` (Mt. Hood Gray)
+- Text on dark: `#FFFFFF`
+- Hearts/Diamonds: `#f47721` (LC Orange instead of traditional red)
+- Spades/Clubs: `#231F20` (LC Black)
 
 ## Implementation Notes
 
